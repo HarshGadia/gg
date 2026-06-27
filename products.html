@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Our Stone Collection | Granite, Marble & Kota Stone Slabs | Gadia Granites</title>
+  <meta name="description" content="Explore our extensive inventory of over 50 stone varieties stocked in our Jaipur godown. Filter and query Granite, Marble, Kota Stone, and Sandstone slabs by finish, origin, and dimensions.">
+  <meta name="keywords" content="Granite inventory, Makrana Marble specs, Kota stone finishes, Sandstone slab size, Jaipur stone catalogue">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style-v2.css?v=6">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     HEADER / NAVBAR
+     ========================================================================== -->
+  <header class="header subpage-header" id="main-header">
+    <a href="index.html" class="logo-wrapper">
+        <div class="logo-brand-names">
+          <span class="logo-gadia">GADIA</span>
+          <span class="logo-granites">GRANITES</span>
+        </div>
+        <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+      </a>
+    
+    <nav class="nav-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="products.html" class="nav-link active">Products</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="process.html" class="nav-link">Our Process</a></li>
+        <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="assets/catalogue.pdf" download class="btn btn-ghost" id="nav-catalogue-btn">Download Catalogue</a>
+      <a href="https://wa.me/919999999999?text=Hi,%20I%20have%20an%20enquiry%20about%20your%20stone%20products." target="_blank" class="whatsapp-header-btn" title="Chat on WhatsApp" id="nav-whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+      <button class="mobile-nav-toggle" aria-label="Toggle menu" id="mobile-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay Navigation -->
+  <div class="mobile-nav-overlay" id="mobile-menu">
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="products.html" class="nav-link">Products</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="process.html" class="nav-link">Our Process</a></li>
+      <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li style="margin-top: 20px;">
+        <a href="assets/catalogue.pdf" download class="btn btn-primary" style="width: auto;">Download Catalogue</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==========================================================================
+     MAIN SITE BODY
+     ========================================================================== -->
+  <main>
+    <!-- Section 1: Product Listing Catalog -->
+    <div id="products-listing-view">
+      <!-- Short Hero -->
+      <section class="products-hero">
+        <h1>Our Collection</h1>
+        <p>Premium Slabs and Custom Cut Sizing Stocked at our Jaipur Godown</p>
+      </section>
+      
+      <!-- Filter and Grid Wrapper (Cream Theme) -->
+      <div class="light-theme">
+        <!-- Interactive Filter Control Bar -->
+        <section class="filters-container">
+          <div class="filters-left">
+            <!-- Material Dropdown -->
+            <div class="filter-dropdown-group" id="material-dropdown">
+              <button class="dropdown-trigger" id="material-trigger" aria-haspopup="true" aria-expanded="false">
+                Material: <span class="active-val" id="material-active-label">All Stones</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" role="menu">
+                <div class="dropdown-item active" data-filter-type="material" data-value="All">All Stones</div>
+                <div class="dropdown-item" data-filter-type="material" data-value="Granite">Granite</div>
+                <div class="dropdown-item" data-filter-type="material" data-value="Marble">Marble</div>
+                <div class="dropdown-item" data-filter-type="material" data-value="Kota Stone">Kota Stone</div>
+                <div class="dropdown-item" data-filter-type="material" data-value="Sandstone">Sandstone</div>
+              </div>
+            </div>
+            
+            <!-- Color Dropdown -->
+            <div class="filter-dropdown-group" id="color-dropdown">
+              <button class="dropdown-trigger" id="color-trigger" aria-haspopup="true" aria-expanded="false">
+                Color: <span class="active-val" id="color-active-label">All Colors</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" role="menu">
+                <div class="dropdown-item active" data-filter-type="color" data-value="All">All Colors</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Black">Black</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="White">White</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Green">Green</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Blue">Blue</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Brown">Brown</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Yellow">Yellow</div>
+                <div class="dropdown-item" data-filter-type="color" data-value="Pink">Pink</div>
+              </div>
+            </div>
+            
+            <!-- Application Dropdown -->
+            <div class="filter-dropdown-group" id="application-dropdown">
+              <button class="dropdown-trigger" id="application-trigger" aria-haspopup="true" aria-expanded="false">
+                Application: <span class="active-val" id="application-active-label">All Uses</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" role="menu">
+                <div class="dropdown-item active" data-filter-type="application" data-value="All">All Uses</div>
+                <div class="dropdown-item" data-filter-type="application" data-value="Countertop">Countertops</div>
+                <div class="dropdown-item" data-filter-type="application" data-value="Flooring">Flooring</div>
+                <div class="dropdown-item" data-filter-type="application" data-value="Wall Cladding">Wall Cladding</div>
+                <div class="dropdown-item" data-filter-type="application" data-value="Exterior">Exteriors</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="filters-right">
+            <!-- Search Box -->
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="stone-search-input" placeholder="Search stone name...">
+            </div>
+            
+            <!-- Result Count -->
+            <span class="results-count"><span id="active-results-count">10</span> Varieties</span>
+          </div>
+        </section>
+        
+        <!-- Live Product Catalogue Grid -->
+        <section class="product-grid" id="product-grid">
+          <!-- Populated dynamically via products.js -->
+        </section>
+      </div>
+    </div>
+    
+    <!-- Section 2: Dynamic Product Detail View (Cream Theme - initially hidden) -->
+    <section class="product-detail-view light-theme" id="products-detail-view" style="display: none;">
+      <!-- Populated dynamically via products.js -->
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+     FOOTER
+     ========================================================================== -->
+  <footer class="footer" id="main-footer">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo-wrapper">
+            <div class="logo-brand-names">
+              <span class="logo-gadia">GADIA</span>
+              <span class="logo-granites">GRANITES</span>
+            </div>
+            <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+          </a>
+        <p>Premium natural stone, granite, marble, Kota stone, and sandstone suppliers. Direct from Jaipur godowns to global build spaces.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/919999999999" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="process.html">Our Process</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Materials</h4>
+        <ul class="footer-links">
+          <li><a href="products.html?material=Granite">Granite Slabs</a></li>
+          <li><a href="products.html?material=Marble">Marble Slabs</a></li>
+          <li><a href="products.html?material=Kota%20Stone">Kota Stone Tiles</a></li>
+          <li><a href="products.html?material=Sandstone">Sandstone Cladding</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact-info">
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Vishwa Karma Industrial Area (VKI), Jaipur, Rajasthan, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 99999 99999</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@gadiagranites.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span>© 2026 Gadia Granites. All Rights Reserved.</span>
+      <span>Designed with premium architecture guidelines.</span>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     FLOATING WHATSAPP BUTTON
+     ========================================================================== -->
+  <a href="https://wa.me/919999999999?text=Hi,%20I%20have%20an%20enquiry%20about%20your%20stone%20products." target="_blank" class="whatsapp-float" id="whatsapp-floating-btn">
+    <div class="whatsapp-float-content">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="whatsapp-text">Chat with Us</span>
+    </div>
+  </a>
+
+  <!-- Link Scripts -->
+  <script src="js/main.js?v=3"></script>
+  <script src="js/products-v2.js?v=3"></script>
+</body>
+</html>

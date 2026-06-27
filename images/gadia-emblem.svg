@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <!-- Path for the curved red text at the bottom -->
+    <path id="textPath-bottom" d="M 12,100 A 88,88 0 0,0 188,100" fill="none" />
+  </defs>
+  
+  <style>
+    .emblem-red {
+      fill: #C41230;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+  </style>
+
+  <!-- Top Arc (Blue) -->
+  <path d="M 32.3,75.4 A 72,72 0 0,1 167.7,75.4" stroke="#1D9EE0" stroke-width="11" fill="none" stroke-linecap="round" />
+  <!-- Top Dot (Blue) -->
+  <circle cx="100" cy="40" r="9.5" fill="#1D9EE0" />
+
+  <!-- Double G Letters -->
+  <!-- Left G (Green) -->
+  <path d="M 92,60 A 40,40 0 0,0 92,140 L 92,100 L 74,100" stroke="#00A97E" stroke-width="18" stroke-linecap="square" stroke-linejoin="miter" fill="none" />
+  
+  <!-- Right G (Blue) - Mirrored -->
+  <path d="M 108,60 A 40,40 0 0,1 108,140 L 108,100 L 126,100" stroke="#1D9EE0" stroke-width="18" stroke-linecap="square" stroke-linejoin="miter" fill="none" />
+
+  <!-- Center-Bottom Dot (Blue) -->
+  <circle cx="100" cy="120" r="5" fill="#1D9EE0" />
+
+  <!-- Bottom Arc (Green) -->
+  <path d="M 32.3,124.6 A 72,72 0 0,0 167.7,124.6" stroke="#00A97E" stroke-width="11" fill="none" stroke-linecap="round" />
+  <!-- Bottom Dot (Blue) -->
+  <circle cx="100" cy="160" r="5.5" fill="#1D9EE0" />
+
+  <!-- Circular Red Text: "A House of Quality Marble & Granite" -->
+  <text class="emblem-red">
+    <textPath href="#textPath-bottom" startOffset="50%" text-anchor="middle">A House of Quality Marble &amp; Granite</textPath>
+  </text>
+</svg>

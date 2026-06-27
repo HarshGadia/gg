@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Architectural Stone Projects Portfolio | Gadia Granites</title>
+  <meta name="description" content="Explore our premium portfolio of commercial, residential, and hospitality installations across India. Discover how our marble, granite, and Kota stone slabs elevate luxury builds.">
+  <meta name="keywords" content="natural stone installations, Makrana marble project, flamed granite cladding, hotel lobby marble, Kota stone landscaping">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style-v2.css?v=6">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     HEADER / NAVBAR
+     ========================================================================== -->
+  <header class="header subpage-header" id="main-header">
+    <a href="index.html" class="logo-wrapper">
+        <div class="logo-brand-names">
+          <span class="logo-gadia">GADIA</span>
+          <span class="logo-granites">GRANITES</span>
+        </div>
+        <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+      </a>
+    
+    <nav class="nav-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="products.html" class="nav-link">Products</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="process.html" class="nav-link">Our Process</a></li>
+        <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="assets/catalogue.pdf" download class="btn btn-ghost" id="nav-catalogue-btn">Download Catalogue</a>
+      <a href="https://wa.me/919999999999?text=Hi,%20I%20have%20an%20enquiry%20about%20your%20stone%20projects." target="_blank" class="whatsapp-header-btn" title="Chat on WhatsApp" id="nav-whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+      <button class="mobile-nav-toggle" aria-label="Toggle menu" id="mobile-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay Navigation -->
+  <div class="mobile-nav-overlay" id="mobile-menu">
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="products.html" class="nav-link">Products</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="process.html" class="nav-link">Our Process</a></li>
+      <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li style="margin-top: 20px;">
+        <a href="assets/catalogue.pdf" download class="btn btn-primary" style="width: auto;">Download Catalogue</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==========================================================================
+     MAIN SITE BODY
+     ========================================================================== -->
+  <main>
+    <!-- Short Hero -->
+    <section class="products-hero">
+      <h1>Selected Works</h1>
+      <p>Architectural Case Studies and Natural Stone Installations</p>
+    </section>
+    
+    <!-- Projects Section (Cream Theme) -->
+    <div class="light-theme">
+      <!-- Filter Tabs Container -->
+      <section class="portfolio-tabs-container">
+        <div class="portfolio-tabs" id="portfolio-tabs">
+          <button class="portfolio-tab active" data-filter="All">All Works</button>
+          <button class="portfolio-tab" data-filter="Hospitality">Hospitality</button>
+          <button class="portfolio-tab" data-filter="Residential">Residential</button>
+          <button class="portfolio-tab" data-filter="Commercial">Commercial</button>
+          <button class="portfolio-tab" data-filter="Landscaping">Landscaping & Public</button>
+        </div>
+      </section>
+
+      <!-- Portfolio Masonry Grid -->
+      <section class="portfolio-grid-container">
+        <div class="portfolio-grid" id="portfolio-grid">
+          <!-- Populated dynamically via projects.js -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Case Study Detail Modal Overlay -->
+    <div class="portfolio-modal" id="portfolio-modal" style="display: none;">
+      <div class="portfolio-modal-content">
+        <span class="portfolio-modal-close" id="modal-close-btn">&times;</span>
+        <div class="portfolio-modal-body" id="modal-body-content">
+          <!-- Populated dynamically via projects.js -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+     FOOTER
+     ========================================================================== -->
+  <footer class="footer" id="main-footer">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a href="index.html" class="logo-wrapper">
+            <div class="logo-brand-names">
+              <span class="logo-gadia">GADIA</span>
+              <span class="logo-granites">GRANITES</span>
+            </div>
+            <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+          </a>
+        <p>Premium natural stone, granite, marble, Kota stone, and sandstone suppliers. Direct from Jaipur godowns to global build spaces.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/919999999999" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="process.html">Our Process</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Materials</h4>
+        <ul class="footer-links">
+          <li><a href="products.html?material=Granite">Granite Slabs</a></li>
+          <li><a href="products.html?material=Marble">Marble Slabs</a></li>
+          <li><a href="products.html?material=Kota%20Stone">Kota Stone Tiles</a></li>
+          <li><a href="products.html?material=Sandstone">Sandstone Cladding</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact-info">
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Vishwa Karma Industrial Area (VKI), Jaipur, Rajasthan, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 99999 99999</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@gadiagranites.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span>© 2026 Gadia Granites. All Rights Reserved.</span>
+      <span>Designed with premium architecture guidelines.</span>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     FLOATING WHATSAPP BUTTON
+     ========================================================================== -->
+  <a href="https://wa.me/919999999999?text=Hi,%20I%20have%20an%20enquiry%20about%20your%20stone%20projects." target="_blank" class="whatsapp-float" id="whatsapp-floating-btn">
+    <div class="whatsapp-float-content">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="whatsapp-text">Chat with Us</span>
+    </div>
+  </a>
+
+  <!-- Link Scripts -->
+  <script src="js/main.js?v=3"></script>
+  <script src="js/projects.js?v=3"></script>
+</body>
+</html>

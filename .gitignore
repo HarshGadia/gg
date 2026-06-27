@@ -1,0 +1,12 @@
+.agents/
+.cursor/
+.github/
+.jetro/
+.mcp.json
+AGENT.md
+CLAUDE.md
+gadiagranites_website.zip
+temp_zip_build/
+node_modules/
+.DS_Store
+*.log

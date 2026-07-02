@@ -1,25 +1,22 @@
 /**
- * Gadia Granites - WhatsApp Business API Webhook Handler
+ * Gadia Granites - Twilio WhatsApp API Webhook Handler
  * 
  * Powered by: Gemini 2.5 Flash API
  * Platform: Vercel Serverless Function (Node.js 18+)
  * 
  * This file handles:
- * 1. Webhook Verification (GET request from Meta)
- * 2. Message Processing (POST request from Meta):
- *    - Parses text, button replies, or image uploads.
- *    - Calls Gemini API with the Master Sales Consultant context and product catalog.
- *    - Dispatches response messages/buttons back to the user via WhatsApp Graph API.
+ * 1. Webhook parsing of incoming WhatsApp messages from Twilio.
+ * 2. Calling Gemini API with the Master Sales Consultant context and product catalog.
+ * 3. Replying to the customer using Twilio's TwiML (XML) response or Twilio REST API.
  * 
- * Environment Variables required:
- * - WHATSAPP_VERIFY_TOKEN: Token you define in the Meta Developer Console
- * - WHATSAPP_ACCESS_TOKEN: System User Access Token from Meta (Permanent)
- * - WHATSAPP_PHONE_NUMBER_ID: ID of your business phone number
+ * Environment Variables required in Vercel:
+ * - TWILIO_ACCOUNT_SID: Found on your Twilio Console home page
+ * - TWILIO_AUTH_TOKEN: Found on your Twilio Console home page
+ * - TWILIO_SENDER_NUMBER: Your Twilio WhatsApp number (e.g. whatsapp:+14155238886 for Sandbox)
  * - GEMINI_API_KEY: Your Google Gemini API Key
- * - KV_REST_API_URL & KV_REST_API_TOKEN: (Optional) Vercel KV / Upstash Redis for multi-message session history
+ * - KV_REST_API_URL & KV_REST_API_TOKEN: (Optional) Vercel KV / Upstash Redis for session memory
  */
 
-// Stone Catalog Database Context for the Gemini AI
 const STONE_CATALOG = `
 - Black Galaxy Granite:
   * Pattern: Gold/copper metallic flecks on obsidian black canvas
@@ -64,84 +61,64 @@ const STONE_CATALOG = `
   * Availability: In Stock (45,000 sq.ft. ready)
 `;
 
-// Simple memory-based session store fallback (resets on serverless recycle)
+// Session store fallback
 const localSessionStore = {};
 
 export default async function handler(req, res) {
-  // 1. WEBHOOK VERIFICATION (GET)
-  if (req.method === 'GET') {
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
-
-    if (mode && token) {
-      if (mode === 'subscribe' && token === process.env.WHATSAPP_VERIFY_TOKEN) {
-        console.log('Webhook Verified Successfully.');
-        return res.status(200).send(challenge);
-      } else {
-        return res.status(403).json({ error: 'Verification token mismatch' });
-      }
-    }
-    return res.status(400).json({ error: 'Missing webhook params' });
+  // Twilio sends data as URL-encoded form parameters (POST method)
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed. Use POST.' });
   }
 
-  // 2. MESSAGE PROCESSING (POST)
-  if (req.method === 'POST') {
-    try {
-      const body = req.body;
+  try {
+    const body = req.body;
 
-      // Check if this is a WhatsApp status update or event payload
-      if (!body.object || !body.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
-        return res.status(200).json({ status: 'ignored_payload' });
-      }
-
-      const value = body.entry[0].changes[0].value;
-      const message = value.messages[0];
-      const customerPhone = message.from;
-      const customerName = value.contacts?.[0]?.profile?.name || 'Customer';
-      
-      // Determine input message content
-      let customerText = '';
-      if (message.type === 'text') {
-        customerText = message.text.body;
-      } else if (message.type === 'button') {
-        customerText = message.button.text; // Quick replies
-      } else if (message.type === 'interactive' && message.interactive.type === 'button_reply') {
-        customerText = message.interactive.button_reply.title; // Interactive buttons
-      } else if (message.type === 'image') {
-        customerText = "[Simulated Photo Attachment]"; // Image upload indicator
-      }
-
-      if (!customerText) {
-        return res.status(200).json({ status: 'no_supported_text' });
-      }
-
-      // Retrieve conversation history
-      const history = await getSessionHistory(customerPhone);
-      history.push({ role: 'user', content: customerText });
-
-      // Generate response using Gemini API
-      const aiResponseText = await generateGeminiAIResponse(customerName, history);
-      history.push({ role: 'model', content: aiResponseText });
-
-      // Persist session history
-      await saveSessionHistory(customerPhone, history);
-
-      // Dispatch message back via WhatsApp Cloud API
-      await sendWhatsAppMessage(customerPhone, aiResponseText);
-
-      return res.status(200).json({ status: 'success' });
-    } catch (error) {
-      console.error('Webhook processing error:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+    // Verify this is an incoming message from Twilio
+    if (!body.From || !body.Body) {
+      console.warn("Invalid webhook payload received:", body);
+      return res.status(400).send("Missing Twilio message parameters.");
     }
-  }
 
-  return res.status(405).json({ error: 'Method Not Allowed' });
+    const customerPhone = body.From.replace('whatsapp:', ''); // e.g. "+919999999999"
+    const customerName = body.ProfileName || 'Customer';
+    const customerText = body.Body.trim();
+
+    console.log(`Received message from ${customerName} (${customerPhone}): "${customerText}"`);
+
+    // 1. Retrieve Conversation History
+    const history = await getSessionHistory(customerPhone);
+    history.push({ role: 'user', content: customerText });
+
+    // 2. Call Gemini API to generate response
+    const aiResponseText = await generateGeminiAIResponse(customerName, history);
+    history.push({ role: 'model', content: aiResponseText });
+
+    // 3. Save Conversation History
+    await saveSessionHistory(customerPhone, history);
+
+    // 4. Send Message Back to WhatsApp
+    // Method A: Return XML TwiML directly in the response (Free, Instant, Serverless-friendly)
+    res.setHeader('Content-Type', 'text/xml');
+    const twimlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Message>${escapeXml(aiResponseText)}</Message>
+</Response>`;
+    
+    return res.status(200).send(twimlResponse);
+
+  } catch (error) {
+    console.error('Twilio Webhook Error:', error);
+    // Send basic error reply via Twilio XML so the user isn't stuck
+    res.setHeader('Content-Type', 'text/xml');
+    return res.status(200).send(`<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Message>Sorry, I encountered an issue processing your request. Please try again in a moment.</Message>
+</Response>`);
+  }
 }
 
 /**
- * Calls Gemini 2.5 Flash to generate the showroom assistant's response.
+ * Call Gemini 2.5 Flash to generate response.
  */
 async function generateGeminiAIResponse(clientName, history) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -149,7 +126,6 @@ async function generateGeminiAIResponse(clientName, history) {
     throw new Error("Missing GEMINI_API_KEY env variable.");
   }
 
-  // Build full system prompt + catalog + chat logs
   const systemInstruction = `You are "Gadia Stone Consultant", an experienced showroom manager representing Gadia Granites (based in Jaipur, Rajasthan, India) with 20+ years of stone sales expertise.
 
 Your objective is NOT to push immediate sales. You are a trusted interior consultant. Help the client find the right material (Granite vs Marble vs Kota Stone etc.), matching color, and estimated costs based on their project needs.
@@ -169,7 +145,6 @@ ${STONE_CATALOG}
 Client Name: ${clientName}
 `;
 
-  // Format history for the Gemini API
   const contents = history.map(msg => ({
     role: msg.role === 'model' ? 'model' : 'user',
     parts: [{ text: msg.content }]
@@ -187,7 +162,7 @@ Client Name: ${clientName}
       },
       generationConfig: {
         maxOutputTokens: 800,
-        temperature: 0.2 // Lower temp for factual, consistent sales consulting
+        temperature: 0.2
       }
     })
   });
@@ -202,52 +177,9 @@ Client Name: ${clientName}
 }
 
 /**
- * Sends a message back to the customer's phone via Meta WhatsApp Cloud API.
- */
-async function sendWhatsAppMessage(recipientPhone, textContent) {
-  const token = process.env.WHATSAPP_ACCESS_TOKEN;
-  const phoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-
-  if (!token || !phoneId) {
-    console.warn("WhatsApp credentials missing. Logging AI response instead:");
-    console.log(`[To: ${recipientPhone}]: ${textContent}`);
-    return;
-  }
-
-  const url = `https://graph.facebook.com/v18.0/${phoneId}/messages`;
-
-  // WhatsApp Message structure (sending text, supports markdown)
-  const payload = {
-    messaging_product: "whatsapp",
-    recipient_type: "individual",
-    to: recipientPhone,
-    type: "text",
-    text: {
-      preview_url: false,
-      body: textContent
-    }
-  };
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
-
-  if (!response.ok) {
-    const errText = await response.text();
-    console.error(`WhatsApp Send Error: ${response.status} - ${errText}`);
-  }
-}
-
-/**
  * Session persistence helper using memory or Redis.
  */
 async function getSessionHistory(phone) {
-  // If Vercel KV (Upstash Redis) is available, use it for persistent storage
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     try {
       const url = `${process.env.KV_REST_API_URL}/get/session_${phone}`;
@@ -265,12 +197,10 @@ async function getSessionHistory(phone) {
     }
   }
 
-  // Memory fallback
   return localSessionStore[phone] || [];
 }
 
 async function saveSessionHistory(phone, history) {
-  // Keep history truncated to last 20 messages to keep contexts small
   const trimmed = history.slice(-20);
 
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
@@ -287,6 +217,20 @@ async function saveSessionHistory(phone, history) {
     }
   }
 
-  // Memory fallback
   localSessionStore[phone] = trimmed;
+}
+
+/**
+ * Escapes characters for XML safety.
+ */
+function escapeXml(unsafe) {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+    }
+  });
 }

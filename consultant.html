@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>AI Showroom Consultant | WhatsApp Assistant | Gadia Granites</title>
+  <meta name="description" content="Engage with our AI-powered WhatsApp showroom assistant. Get personalized material recommendations, compare stones, estimate project costs, and consult on interior designs.">
+  <meta name="keywords" content="AI Stone Consultant, Gadia Granites AI, Stone Selection Assistant, Granite Comparison, Marble Cost Estimator">
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style-v2.css?v=6">
+  
+  <style>
+    /* Custom Styles for AI Consultant Page */
+    .consultant-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .consultant-container {
+        grid-template-columns: 1fr;
+        padding: 20px 10px;
+      }
+    }
+
+    /* Left Column - Phone Frame Mockup */
+    .phone-mockup {
+      background: #000;
+      border: 12px solid #222;
+      border-radius: 40px;
+      height: 750px;
+      max-width: 420px;
+      margin: 0 auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Phone Speaker/Camera Notch */
+    .phone-notch {
+      width: 150px;
+      height: 25px;
+      background: #000;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      z-index: 10;
+    }
+
+    /* WhatsApp Header */
+    .whatsapp-header {
+      background: #075E54;
+      color: #fff;
+      padding: 30px 16px 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 5;
+    }
+
+    .whatsapp-back-btn {
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .whatsapp-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #075E54;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .whatsapp-user-info {
+      flex: 1;
+    }
+
+    .whatsapp-username {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .whatsapp-status {
+      font-size: 11px;
+      opacity: 0.8;
+      margin: 0;
+    }
+
+    .whatsapp-status::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #25D366;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    .whatsapp-actions {
+      display: flex;
+      gap: 15px;
+      font-size: 16px;
+    }
+
+    .whatsapp-actions i {
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .whatsapp-actions i:hover {
+      opacity: 1;
+    }
+
+    /* WhatsApp Chat Body */
+    .whatsapp-chat-body {
+      flex: 1;
+      background: #efe7dd url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') repeat;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .whatsapp-chat-body::-webkit-scrollbar {
+      display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .whatsapp-chat-body {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Message Bubbles */
+    .chat-bubble {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      line-height: 1.4;
+      position: relative;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+      word-wrap: break-word;
+      animation: fadeInBubble 0.25s ease-out forwards;
+    }
+
+    @keyframes fadeInBubble {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-bubble.ai {
+      background: #fff;
+      color: #303030;
+      align-self: flex-start;
+      border-top-left-radius: 0;
+    }
+
+    .chat-bubble.user {
+      background: #dcf8c6;
+      color: #303030;
+      align-self: flex-end;
+      border-top-right-radius: 0;
+    }
+
+    .bubble-time {
+      font-size: 9px;
+      color: #8c8c8c;
+      text-align: right;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* Interactive Buttons within Chat */
+    .chat-buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+      align-self: flex-start;
+      max-width: 90%;
+    }
+
+    .chat-btn-option {
+      background: #fff;
+      color: #075E54;
+      border: 1px solid rgba(7, 94, 84, 0.2);
+      border-radius: 18px;
+      padding: 8px 16px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .chat-btn-option:hover {
+      background: #075E54;
+      color: #fff;
+      border-color: #075E54;
+      transform: translateY(-1px);
+    }
+
+    .chat-btn-option.selected {
+      background: #075E54;
+      color: #fff;
+      border-color: #075E54;
+    }
+
+    /* Product Card in Chat */
+    .chat-product-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      max-width: 85%;
+      align-self: flex-start;
+      font-family: var(--font-body);
+      margin: 5px 0;
+      border: 1px solid #e2e2e2;
+    }
+
+    .chat-product-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+    }
+
+    .chat-product-content {
+      padding: 12px;
+    }
+
+    .chat-product-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: #111;
+    }
+
+    .chat-product-price {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-accent);
+      margin: 0 0 10px 0;
+    }
+
+    .chat-product-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+      font-size: 11.5px;
+      color: #555;
+    }
+
+    .chat-product-features li {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chat-product-features li i {
+      color: #25D366;
+    }
+
+    .chat-product-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .chat-product-btn {
+      flex: 1;
+      padding: 6px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      border: 1px solid #075E54;
+      transition: all 0.2s ease;
+    }
+
+    .chat-product-btn.primary {
+      background: #075E54;
+      color: #fff;
+    }
+
+    .chat-product-btn.secondary {
+      background: #fff;
+      color: #075E54;
+    }
+
+    .chat-product-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Cost Calculator Form in Chat */
+    .chat-calculator-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      max-width: 85%;
+      align-self: flex-start;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .chat-calc-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      color: #111;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .chat-calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .chat-calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chat-calc-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #777;
+    }
+
+    .chat-calc-input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 6px;
+      font-size: 12px;
+      font-family: var(--font-body);
+    }
+
+    .chat-calc-submit {
+      width: 100%;
+      background: #075E54;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Image Attachment Preview Box */
+    .image-preview-container {
+      align-self: flex-end;
+      background: #dcf8c6;
+      padding: 4px;
+      border-radius: 8px;
+      max-width: 70%;
+      display: none;
+    }
+
+    .image-preview-thumbnail {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* WhatsApp Footer Input Bar */
+    .whatsapp-input-bar {
+      background: #f0f0f0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .whatsapp-input-wrapper {
+      background: #fff;
+      flex: 1;
+      border-radius: 22px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .whatsapp-attachment-btn {
+      color: #0084ff;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .whatsapp-attachment-menu {
+      display: none;
+      position: absolute;
+      bottom: 45px;
+      left: 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      padding: 10px;
+      z-index: 20;
+      width: 180px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .attachment-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .attachment-menu-item:hover {
+      background: #f5f5f5;
+    }
+
+    .attachment-menu-item i {
+      font-size: 14px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .attachment-menu-item.kitchen i { color: #f39c12; }
+    .attachment-menu-item.bathroom i { color: #3498db; }
+    .attachment-menu-item.staircase i { color: #e74c3c; }
+
+    .whatsapp-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: #303030;
+      background: transparent;
+    }
+
+    .whatsapp-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #075E54;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      border: none;
+    }
+
+    .whatsapp-send-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Right Column - Live Console Panel (Dark Surface/Glassmorphism) */
+    .console-panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-divider);
+      border-radius: 20px;
+      padding: 24px;
+      color: var(--color-primary-text);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 750px;
+      overflow-y: auto;
+    }
+
+    .console-section-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      border-bottom: 1px solid var(--color-divider);
+      padding-bottom: 8px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .console-lead-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .console-lead-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-divider);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .console-lead-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-secondary-text);
+      margin-bottom: 4px;
+    }
+
+    .console-lead-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-primary-text);
+    }
+
+    /* Comparison Table Styling */
+    .console-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--color-divider);
+    }
+
+    .console-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-body);
+      font-size: 12px;
+      text-align: left;
+    }
+
+    .console-table th {
+      background: rgba(0, 169, 126, 0.1);
+      color: var(--color-accent);
+      padding: 10px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .console-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--color-divider);
+      color: var(--color-primary-text);
+    }
+
+    .console-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Calculator Results Grid */
+    .console-calc-results {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-divider);
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .console-calc-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-body);
+      font-size: 13px;
+    }
+
+    .console-calc-row.total {
+      font-weight: 700;
+      color: var(--color-accent);
+      border-top: 1px solid var(--color-divider);
+      padding-top: 8px;
+    }
+
+    /* Floating Typist Indicator */
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 18px;
+      border-top-left-radius: 0;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+    }
+
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      float: left;
+      margin: 0 2px;
+      background-color: #9E9E9E;
+      border-radius: 50%;
+      animation: bounce 1.3s infinite both;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* Action buttons in right console */
+    .console-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .console-action-btn.whatsapp-green {
+      background: #25D366;
+      color: #fff;
+      border: none;
+    }
+
+    .console-action-btn.whatsapp-green:hover {
+      background: #1ebe57;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    /* Shortlisted Stone Item */
+    .shortlist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-divider);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .shortlist-item-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .shortlist-item-info {
+      flex: 1;
+    }
+
+    .shortlist-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--color-primary-text);
+    }
+
+    .shortlist-item-subtitle {
+      font-size: 11px;
+      color: var(--color-secondary-text);
+      margin: 2px 0 0 0;
+    }
+
+    .shortlist-item-remove {
+      color: var(--color-brand-red);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    .shortlist-item-remove:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+     HEADER / NAVBAR
+     ========================================================================== -->
+  <header class="header subpage-header" id="main-header">
+    <a href="index.html" class="logo-wrapper">
+        <div class="logo-brand-names">
+          <span class="logo-gadia">GADIA</span>
+          <span class="logo-granites">GRANITES</span>
+        </div>
+        <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+      </a>
+    
+    <nav class="nav-container">
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="products.html" class="nav-link">Products</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="process.html" class="nav-link">Our Process</a></li>
+        <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+        <li><a href="consultant.html" class="nav-link active">AI Showroom</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="assets/catalogue.pdf" download class="btn btn-ghost" id="nav-catalogue-btn">Download Catalogue</a>
+      <a href="https://wa.me/919999999999?text=Hi,%20I%20have%20an%20enquiry%20about%20your%20stone%20products." target="_blank" class="whatsapp-header-btn" title="Chat on WhatsApp" id="nav-whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+      <button class="mobile-nav-toggle" aria-label="Toggle menu" id="mobile-toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay Navigation -->
+  <div class="mobile-nav-overlay" id="mobile-menu">
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="products.html" class="nav-link">Products</a></li>
+      <li><a href="projects.html" class="nav-link">Projects</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="process.html" class="nav-link">Our Process</a></li>
+      <li><a href="export.html" class="nav-link">Export & Bulk</a></li>
+      <li><a href="consultant.html" class="nav-link">AI Showroom</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+      <li style="margin-top: 20px;">
+        <a href="assets/catalogue.pdf" download class="btn btn-primary" style="width: auto;">Download Catalogue</a>
+      </li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Page Header Section -->
+    <section class="products-hero">
+      <span class="eyebrow" style="color: var(--color-accent);">Interactive Simulation</span>
+      <h1 style="font-size: 40px; margin-top: 10px;">WhatsApp AI Showroom Assistant</h1>
+      <p style="max-width: 700px; margin: 15px auto 0 auto; color: var(--color-secondary-text);">
+        Meet our digital showroom consultant. Experience how our AI guides clients from project requirements, styles, budgets, and measurements to curated stone recommendations, cost calculations, and structural comparisons—directly within WhatsApp.
+      </p>
+    </section>
+
+    <!-- Main Simulator Layout Container -->
+    <section style="background-color: var(--color-bg); padding-bottom: 80px;">
+      <div class="consultant-container">
+        
+        <!-- LEFT: Smartphone Mockup -->
+        <div>
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            
+            <!-- WhatsApp Chat Header -->
+            <div class="whatsapp-header">
+              <span class="whatsapp-back-btn"><i class="fa-solid fa-arrow-left"></i></span>
+              <div class="whatsapp-avatar">G</div>
+              <div class="whatsapp-user-info">
+                <h4 class="whatsapp-username">Gadia Stone Consultant <i class="fa-solid fa-circle-check" style="color: #20b2aa; font-size: 12px;"></i></h4>
+                <span class="whatsapp-status">Online</span>
+              </div>
+              <div class="whatsapp-actions">
+                <i class="fa-solid fa-video" title="Video Consultation"></i>
+                <i class="fa-solid fa-phone" title="Call Back"></i>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </div>
+            </div>
+
+            <!-- WhatsApp Chat Body -->
+            <div class="whatsapp-chat-body" id="chat-body">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typing-bubble">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <!-- Image preview box if attachment selected -->
+            <div class="image-preview-container" id="chat-image-preview">
+              <img src="" class="image-preview-thumbnail" id="preview-thumb">
+              <span class="bubble-time" style="color: #333;" id="preview-time">10:00 AM</span>
+            </div>
+
+            <!-- WhatsApp Input Footer -->
+            <div class="whatsapp-input-bar">
+              <div class="whatsapp-input-wrapper">
+                <span class="whatsapp-attachment-btn" id="attachment-trigger">
+                  <i class="fa-solid fa-paperclip"></i>
+                  <!-- Attachment Dropdown -->
+                  <div class="whatsapp-attachment-menu" id="attachment-dropdown">
+                    <div class="attachment-menu-item kitchen" data-room="kitchen">
+                      <i class="fa-solid fa-kitchen-set"></i>
+                      <span>Select Kitchen Space</span>
+                    </div>
+                    <div class="attachment-menu-item bathroom" data-room="bathroom">
+                      <i class="fa-solid fa-bath"></i>
+                      <span>Select Bathroom Space</span>
+                    </div>
+                    <div class="attachment-menu-item staircase" data-room="staircase">
+                      <i class="fa-solid fa-stairs"></i>
+                      <span>Select Staircase Space</span>
+                    </div>
+                  </div>
+                </span>
+                <input type="text" class="whatsapp-input" id="chat-input" placeholder="Type a message..." autocomplete="off">
+              </div>
+              <button class="whatsapp-send-btn" id="send-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: Live Console / Insight Panel -->
+        <div class="console-panel">
+          
+          <!-- Section 1: Lead Qualification Sheet -->
+          <div>
+            <h4 class="console-section-title"><i class="fa-solid fa-address-card"></i> Lead Qualification Sheet</h4>
+            <div class="console-lead-grid">
+              <div class="console-lead-item">
+                <div class="console-lead-label">Client Name</div>
+                <div class="console-lead-value" id="console-name">Guest Customer</div>
+              </div>
+              <div class="console-lead-item">
+                <div class="console-lead-label">Project Type</div>
+                <div class="console-lead-value" id="console-project">-</div>
+              </div>
+              <div class="console-lead-item">
+                <div class="console-lead-label">Installation Area</div>
+                <div class="console-lead-value" id="console-area">-</div>
+              </div>
+              <div class="console-lead-item">
+                <div class="console-lead-label">Design Style</div>
+                <div class="console-lead-value" id="console-style">-</div>
+              </div>
+              <div class="console-lead-item">
+                <div class="console-lead-label">Color Preference</div>
+                <div class="console-lead-value" id="console-color">-</div>
+              </div>
+              <div class="console-lead-item">
+                <div class="console-lead-label">Budget Tier</div>
+                <div class="console-lead-value" id="console-budget">-</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Interactive Cost Estimator -->
+          <div id="console-estimator-section" style="display: none;">
+            <h4 class="console-section-title"><i class="fa-solid fa-calculator"></i> Active Cost Calculator</h4>
+            <div class="console-calc-results">
+              <div class="console-calc-row">
+                <span>Selected Stone:</span>
+                <span id="console-calc-stone" style="font-weight:600;">-</span>
+              </div>
+              <div class="console-calc-row">
+                <span>Dimensions:</span>
+                <span id="console-calc-dims">-</span>
+              </div>
+              <div class="console-calc-row">
+                <span>Calculated Area:</span>
+                <span id="console-calc-area">-</span>
+              </div>
+              <div class="console-calc-row">
+                <span>Approx Material Cost:</span>
+                <span id="console-calc-material-cost">-</span>
+              </div>
+              <div class="console-calc-row">
+                <span>Waste Allowance (10%):</span>
+                <span id="console-calc-waste">-</span>
+              </div>
+              <div class="console-calc-row total">
+                <span>Estimated Total (Excl. Tax & Install):</span>
+                <span id="console-calc-total">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Comparison Engine -->
+          <div id="console-comparison-section" style="display: none;">
+            <h4 class="console-section-title"><i class="fa-solid fa-code-compare"></i> Dynamic Comparison Matrix</h4>
+            <div class="console-table-container">
+              <table class="console-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th id="comp-header-1">Stone A</th>
+                    <th id="comp-header-2">Stone B</th>
+                  </tr>
+                </thead>
+                <tbody id="comparison-table-body">
+                  <!-- Loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 4: Project Shortlist -->
+          <div>
+            <h4 class="console-section-title"><i class="fa-solid fa-heart"></i> Selected Showroom Shortlist</h4>
+            <div id="console-shortlist-container" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:12px; color: var(--color-secondary-text); font-style:italic;" id="shortlist-empty">No stones shortlisted yet. Select "Request Quote" or "Compare" in the chat recommendations.</div>
+            </div>
+          </div>
+
+          <!-- Section 5: Human Handoff -->
+          <div style="margin-top:auto; padding-top:20px; border-top: 1px solid var(--color-divider);">
+            <a href="#" target="_blank" class="console-action-btn whatsapp-green" id="handoff-whatsapp-btn">
+              <i class="fa-brands fa-whatsapp"></i> Hand off Lead to Sales Expert
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+     FOOTER
+     ========================================================================== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="logo-wrapper">
+          <div class="logo-brand-names" style="color: var(--color-primary-text);">
+            <span class="logo-gadia">GADIA</span>
+            <span class="logo-granites">GRANITES</span>
+          </div>
+          <img src="images/gadia-emblem.svg" alt="Gadia Granites Logo" class="logo-icon">
+        </a>
+        <p style="margin-top: 15px;">Supplying high-quality natural stone products globally from Jaipur, Rajasthan. Sourced responsibly, crafted precisely.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Our Materials</h4>
+        <ul class="footer-links">
+          <li><a href="products.html?material=Granite">Granite Slabs</a></li>
+          <li><a href="products.html?material=Marble">Marble Slabs</a></li>
+          <li><a href="products.html?material=Kota%20Stone">Kota Stone Tiles</a></li>
+          <li><a href="products.html?material=Sandstone">Sandstone Cladding</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="footer-contact-info">
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Vishwa Karma Industrial Area (VKI), Jaipur, Rajasthan, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 99999 99999</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>info@gadiagranites.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span>© 2026 Gadia Granites. All Rights Reserved.</span>
+      <span>Designed with premium architecture guidelines.</span>
+    </div>
+  </footer>
+
+  <!-- Link Scripts -->
+  <script src="js/main.js?v=3"></script>
+  <!-- Load products first so the consultant script can access product array -->
+  <script src="js/products-v2.js?v=3"></script>
+  <script src="js/consultant.js?v=1"></script>
+</body>
+</html>
